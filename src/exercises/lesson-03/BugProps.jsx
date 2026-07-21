@@ -12,11 +12,12 @@
   Use the commented "Explanation" section at the bottom of this lesson's components.
 */
 
-export default function BugProps({ name = 'friend' }) {
-  let message = 'Hello, ' + name;
+import { useState } from 'react';
+export default function BugMutatedState({ name = 'friend' }) {
+  let [message, setMessage] = useState('Hello, ' + name);
 
   function handleChange() {
-    message = 'Hi, ' + name + '!';
+    setMessage((message) => 'Hi, ' + name + '!');
   }
 
   return (
@@ -28,4 +29,5 @@ export default function BugProps({ name = 'friend' }) {
 }
 
 // Explanation:
-// (Write your explanation here)
+// The code was missing a useState feature to update or change the text. The variable message was
+// incorporated into useState, and setMessage changes the original text or statement.
