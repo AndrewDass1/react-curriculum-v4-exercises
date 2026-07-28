@@ -8,7 +8,7 @@ export default function BugStrictMode() {
 
   useEffect(() => {
     setInterval(() => {
-      setCount((c) => c + 1);
+      setCount((count) => 0.5 + count);
     }, 1000);
   }, []);
 
@@ -21,3 +21,8 @@ export default function BugStrictMode() {
 }
 
 // Write your explanation of how StrictMode helps us catch this bug
+
+// Instead of adding 1, you add 0.5 because the call back function will recall
+// the function twice everytime because strict mode is enabled. Since it run
+// twice everytime, instead of adding 1, add 0.5 to make the function add
+// a total of 1.
