@@ -27,7 +27,7 @@ This progression will give you hands-on experience with controlled components an
 
 First, you'll convert the uncontrolled form to use React state management instead of relying on the DOM.
 
-### Step 1: Create State Variables
+### Step 1: Create State Variables (done)
 
 - [ ] Add `name` state using `useState("")` for the snack name input
 - [ ] Add `rating` state using `useState("")` for the rating input
@@ -42,12 +42,12 @@ First, you'll convert the uncontrolled form to use React state management instea
 
 ### Step 3: Convert Inputs to Controlled
 
-- [ ] Replace `defaultValue` with `value` prop for both inputs
-- [ ] Connect each input's `value` to its respective state variable
-- [ ] Add `onChange` handlers for both inputs that update the corresponding state variable
-- [ ] Add `onFocus` handlers for both inputs that mark the field as touched when user clicks/focuses on it:
-  - For name: `setTouched(prev => ({ ...prev, name: true }))`
-  - For rating: `setTouched(prev => ({ ...prev, rating: true }))`
+- [ ] Replace `defaultValue` with `value` prop for both inputs (done)
+- [ ] Connect each input's `value` to its respective state variable, state variables are from useState hook (done? not sure)
+- [ ] Add `onChange` handlers for both inputs that update the corresponding state variable (done)
+- [ ] Add `onFocus` handlers for both inputs that mark the field as touched when user clicks/focuses on it: (done)
+  - For name: `setTouched(prev => ({ ...prev, name: true }))` (done)
+  - For rating: `setTouched(prev => ({ ...prev, rating: true }))` (done)
 
 ## Part 2: Update Form Validation
 
@@ -55,7 +55,7 @@ Next, you'll add validation to provide immediate feedback to users.
 
 ### Step 1: Allow React to Manage Validation
 
-- [ ] Remove the `required` attribute from the input elements
+- [ ] Remove the `required` attribute from the input elements (done)
 
 ### Step 2: Create Validation Functions
 

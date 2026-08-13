@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
 import SnackForm from './SnackForm';
 import styles from './SnackManager.module.css';
 
@@ -9,8 +10,16 @@ export default function SnackManager() {
     { id: 3, name: 'Trail Mix', rating: 4 },
   ]);
 
+  // Question 1: Add states
+  const [name, setName] = useState('');
+  const [rating, setRating] = useState('');
+  const [touched, setTouched] = [{ name: false, rating: false }];
+
   const [nextId, setNextId] = useState(4);
   const [editingSnack, setEditingSnack] = useState(null);
+
+  // Question 2 - Add useEffect
+  // useEffect ( (snackItem) => setEditingSnack([[...snacks], [snackItem]]), [editingSnack] );
 
   function addSnack(name, rating) {
     const newSnack = {
