@@ -9,11 +9,26 @@ export default function SnackForm({
 }) {
   const isEditing = Boolean(editingSnack);
 
+  function validateName() {
+    return name.trim() != null ? true : null;
+  }
+
+  function validateRating() {
+    return name.trim() != null ? true : null;
+  }
+
+  function getNameError() {
+    return 'error' ? name == null && touched : '';
+  }
+
+  function getRatingError() {
+    return 'error' ? name == null && touched : '';
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const name = formData.get('name');
-    const rating = formData.get('rating');
+    const name = { name };
+    const rating = { rating };
 
     if (isEditing) {
       updateSnack(editingSnack.id, name, rating);
@@ -36,11 +51,11 @@ export default function SnackForm({
         <label className={styles['field-label']}>Name:</label>
         <input
           type="text"
-          name="name"
-          defaultValue={isEditing ? editingSnack.name : ''}
-          required
+          name="setTouched(prev => ({ ...prev, name: true }))"
+          value={isEditing ? editingSnack.name : ''}
           className={styles['field-input']}
           placeholder="Enter snack name"
+          onChange={handleSubmit}
         />
       </div>
 
@@ -48,13 +63,13 @@ export default function SnackForm({
         <label className={styles['field-label']}>Rating:</label>
         <input
           type="number"
-          name="rating"
-          defaultValue={isEditing ? editingSnack.rating : ''}
-          required
+          name="setTouched(prev => ({ ...prev, rating: true }))"
+          value={isEditing ? editingSnack.rating : ''}
           min="1"
           max="5"
           className={styles['field-input']}
           placeholder="Rate 1-5"
+          onChange={handleSubmit}
         />
       </div>
 
