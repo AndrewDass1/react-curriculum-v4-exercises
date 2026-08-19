@@ -78,7 +78,7 @@ This exercise is about refactoring safely, not adding new features.
   - Manage loading state
   - Return only data (no JSX)
 
-At the same time, organize your project to follow this structure:
+At the same time, organize your project to follow this structure: (done)
 
 ```
 src/
@@ -91,25 +91,25 @@ Move files into the appropriate folders and update imports in `StudentWork.jsx`.
 
 ## Assessment Criteria
 
-### Exercise #1
+### Exercise #1 (done)
 
 - Reusable UI is extracted into separate components
 - Components receive data via props
 - No unnecessary state is introduced
 
-### Exercise #2
+### Exercise #2 (done)
 
 - Application behavior remains unchanged
 - Refactored components are used correctly in `StudentWork.jsx`
 - No functionality is lost during refactor
 
-### Exercise #3
+### Exercise #3 (half-done)
 
 - Filtering logic is moved to a helper function
 - Helper function contains no hooks or JSX
 - `StudentWork.jsx` imports and uses the helper correctly
 
-### Exercise #4
+### Exercise #4 (half-done)
 
 - Data-fetching logic is moved to a custom hook
 - Hook manages its own state and effects
