@@ -16,3 +16,11 @@ export default function Parent() {
     </div>
   );
 }
+
+//  [ ] state is managed in Parent
+
+//  [ ] button in Child updates the counter using
+//  helper function in Parent
+
+//  [ ] The "Increment Counter" button results
+// in the counter incrementing

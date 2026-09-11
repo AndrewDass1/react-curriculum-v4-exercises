@@ -15,10 +15,11 @@ export default function BugEffectLoop() {
 
   useEffect(() => {
     setCount(count + 1);
-  });
+  }, '');
 
   return <p>Bug 1 Count: {count}</p>;
 }
 
 // Explanation:
-// (Write your explanation here)
+// A second argument or the '' was placed within setCount to stop the counter from running infinitely.
+// This will only make the counter run once when the page and the components initially load.
