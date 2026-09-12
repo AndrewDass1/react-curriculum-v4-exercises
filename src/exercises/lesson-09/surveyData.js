@@ -1,6 +1,5 @@
 import { QUESTION_TYPES } from './surveyReducer';
 
-// Sample survey data for Lesson 09 Exercise
 export const initialSurvey = {
   survey: {
     id: 'survey-1',

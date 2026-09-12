@@ -3,7 +3,6 @@ import { QUESTION_TYPES, QUESTION_TYPE_LABELS } from '../surveyReducer';
 import { QuestionDialog } from './QuestionDialog';
 import styles from '../StudentWork.module.css';
 
-// Add Question Component
 export function NewQuestion() {
   const [showDialog, setShowDialog] = useState(false);
   const [selectedType, setSelectedType] = useState('');
@@ -38,7 +37,6 @@ export function NewQuestion() {
         </div>
       </div>
 
-      {/* Question Creation Dialog */}
       {showDialog && (
         <QuestionDialog selectedType={selectedType} onClose={closeDialog} />
       )}

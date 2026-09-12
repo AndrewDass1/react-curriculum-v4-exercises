@@ -3,7 +3,6 @@ import { SurveyContext } from '../SurveyContext';
 import { QUESTION_TYPES } from '../surveyReducer';
 import styles from '../StudentWork.module.css';
 
-// Question Creation Dialog Component
 export function QuestionDialog({ selectedType, onClose }) {
   const { dispatch } = useContext(SurveyContext);
   const [questionText, setQuestionText] = useState('');
@@ -11,28 +10,23 @@ export function QuestionDialog({ selectedType, onClose }) {
   const [newOption, setNewOption] = useState('');
 
   const handleSave = () => {
-    if (questionText.trim()) {
-      const payload = {
-        type: selectedType,
-        question: questionText.trim(),
-      };
+    if (!questionText.trim()) return;
 
-      // Add options for multiple choice questions
-      if (selectedType === QUESTION_TYPES.MULTIPLE_CHOICE) {
-        const allOptions = [...options];
-        // Include newOption if it has content
-        if (newOption.trim()) {
-          allOptions.push(newOption.trim());
-        }
-        payload.options = allOptions.filter((opt) => opt.trim());
+    const payload = {
+      type: selectedType,
+      question: questionText.trim(),
+    };
+
+    if (selectedType === QUESTION_TYPES.MULTIPLE_CHOICE) {
+      const allOptions = [...options];
+      if (newOption.trim()) {
+        allOptions.push(newOption.trim());
       }
-
-      dispatch({
-        type: 'ADD_QUESTION',
-        payload: payload,
-      });
-      onClose();
+      payload.options = allOptions.filter((opt) => opt.trim());
     }
+
+    dispatch({ type: 'ADD_QUESTION', payload });
+    onClose();
   };
 
   const addOption = () => {
@@ -47,25 +41,22 @@ export function QuestionDialog({ selectedType, onClose }) {
   };
 
   const updateOption = (index, value) => {
-    const updatedOptions = [...options];
-    updatedOptions[index] = value;
-    setOptions(updatedOptions);
+    const updated = [...options];
+    updated[index] = value;
+    setOptions(updated);
   };
 
-  const formatQuestionType = (type) => {
-    return type
+  const formatQuestionType = (type) =>
+    type
       .split('-')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((w) => w[0].toUpperCase() + w.slice(1))
       .join('-');
-  };
 
-  // Calculate if we have enough options for multiple choice
   const hasEnoughOptions = () => {
     if (selectedType !== QUESTION_TYPES.MULTIPLE_CHOICE) return true;
-    const existingOptions = options.filter((opt) => opt.trim()).length;
-    const pendingOption = newOption.trim() ? 1 : 0;
-    const total = existingOptions + pendingOption;
-    return total >= 2;
+    const existing = options.filter((opt) => opt.trim()).length;
+    const pending = newOption.trim() ? 1 : 0;
+    return existing + pending >= 2;
   };
 
   const isFormValid = questionText.trim() && hasEnoughOptions();
@@ -87,7 +78,6 @@ export function QuestionDialog({ selectedType, onClose }) {
             autoFocus
           />
 
-          {/* Options section for multiple choice questions */}
           {selectedType === QUESTION_TYPES.MULTIPLE_CHOICE && (
             <div className={styles['options-creation']}>
               <label>Answer Options:</label>

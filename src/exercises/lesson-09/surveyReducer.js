@@ -1,8 +1,6 @@
-// Helper function to generate unique IDs
 export const generateId = () =>
   `q${Date.now()}${Math.random().toString(36).substring(2, 11)}`;
 
-// Question type constants
 export const QUESTION_TYPES = {
   TEXT: 'text',
   MULTIPLE_CHOICE: 'multiple-choice',
@@ -10,7 +8,6 @@ export const QUESTION_TYPES = {
   RATING: 'rating',
 };
 
-// Question type display labels
 export const QUESTION_TYPE_LABELS = {
   [QUESTION_TYPES.TEXT]: 'Text Question',
   [QUESTION_TYPES.MULTIPLE_CHOICE]: 'Multiple Choice',
@@ -18,11 +15,8 @@ export const QUESTION_TYPE_LABELS = {
   [QUESTION_TYPES.RATING]: 'Rating',
 };
 
-// Default question options for multiple choice
 export const DEFAULT_MULTIPLE_CHOICE_OPTIONS = ['Option A'];
 
-// Factory function to create new questions
-//https://javascript.plainenglish.io/chapter-51-mastering-factory-functions-in-javascript-the-ultimate-guide-379bc2006895
 const createNewQuestion = (payload, questionsLength) => ({
   id: generateId(),
   type: payload.type || QUESTION_TYPES.TEXT,
@@ -36,10 +30,9 @@ const createNewQuestion = (payload, questionsLength) => ({
       : []),
 });
 
+// ⭐⭐⭐ THIS IS THE IMPORTANT PART — THE EXPORT ⭐⭐⭐
 export function surveyReducer(state, action) {
   switch (action.type) {
-    // ===== MVP ACTIONS (ALREADY WORKING) =====
-
     case 'ADD_QUESTION':
       return {
         ...state,
@@ -88,21 +81,89 @@ export function surveyReducer(state, action) {
         ui: {
           ...state.ui,
           isPreviewMode: !state.ui.isPreviewMode,
-          editingQuestionId: null, // Clear editing when switching modes
+          editingQuestionId: null,
         },
       };
-    // ===== END MVP ACTIONS =========
-    // ===== STUDENT IMPLEMENTATION TASKS =====
 
-    case 'UPDATE_QUESTION_TEXT':
-      // TODO: Implement this action
-      console.log('TODO: Implement UPDATE_QUESTION_TEXT action');
-      return state;
+    case 'UPDATE_QUESTION_TEXT': {
+      const { id, newText } = action.payload;
 
-    case 'DELETE_QUESTION':
-      // TODO: Implement this action
-      console.log('TODO: Implement DELETE_QUESTION action');
-      return state;
+      return {
+        ...state,
+        questions: state.questions.map((q) =>
+          q.id === id ? { ...q, question: newText } : q
+        ),
+        ui: {
+          ...state.ui,
+          editingQuestionId: null,
+        },
+      };
+    }
+
+    case 'DELETE_QUESTION': {
+      const { id } = action.payload;
+
+      return {
+        ...state,
+        questions: state.questions.filter((q) => q.id !== id),
+        ui: {
+          ...state.ui,
+          editingQuestionId:
+            state.ui.editingQuestionId === id
+              ? null
+              : state.ui.editingQuestionId,
+        },
+      };
+    }
+
+    case 'ADD_OPTION_TO_QUESTION': {
+      const { questionId, optionText } = action.payload;
+
+      return {
+        ...state,
+        questions: state.questions.map((q) =>
+          q.id === questionId
+            ? { ...q, options: [...q.options, optionText] }
+            : q
+        ),
+      };
+    }
+
+    case 'UPDATE_OPTION_TEXT': {
+      const { questionId, optionIndex, newText } = action.payload;
+
+      return {
+        ...state,
+        questions: state.questions.map((q) =>
+          q.id === questionId
+            ? {
+                ...q,
+                options: q.options.map((opt, i) =>
+                  i === optionIndex ? newText : opt
+                ),
+              }
+            : q
+        ),
+      };
+    }
+
+    case 'DELETE_OPTION_FROM_QUESTION': {
+      const { questionId, optionIndex } = action.payload;
+
+      return {
+        ...state,
+        questions: state.questions.map((q) => {
+          if (q.id !== questionId) return q;
+
+          if (q.options.length <= 2) return q;
+
+          return {
+            ...q,
+            options: q.options.filter((_, i) => i !== optionIndex),
+          };
+        }),
+      };
+    }
 
     default:
       return state;

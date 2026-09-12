@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export default function Home({ products }) {
   return (
@@ -25,22 +25,26 @@ export default function Home({ products }) {
               background: '#fff',
             }}
           >
-            <img
-              src={p.previewImage}
-              alt={p.name}
-              style={{
-                width: '100%',
-                height: 120,
-                objectFit: 'cover',
-                borderRadius: 8,
-              }}
-            />
+            <Link to={`/products/${p.id}`}>
+              <img
+                src={p.previewImage}
+                alt={p.name}
+                style={{
+                  width: '100%',
+                  height: 120,
+                  objectFit: 'cover',
+                  borderRadius: 8,
+                }}
+              />
+            </Link>
 
             <h3 style={{ margin: '10px 0 4px' }}>{p.name}</h3>
 
             <p style={{ margin: 0 }}>
               <strong>${p.price.toFixed(2)}</strong>
             </p>
+
+            <Link to={`/products/${p.id}`}>View Details</Link>
           </article>
         ))}
       </div>
